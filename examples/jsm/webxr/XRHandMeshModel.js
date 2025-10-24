@@ -6,6 +6,8 @@ const DEFAULT_HAND_PROFILE_PATH = 'https://cdn.jsdelivr.net/npm/@webxr-input-pro
  * Represents one of the hand model types {@link XRHandModelFactory} might produce
  * depending on the selected profile. `XRHandMeshModel` represents a hand with a
  * custom asset.
+ *
+ * @three_import import { XRHandMeshModel } from 'three/addons/webxr/XRHandMeshModel.js';
  */
 class XRHandMeshModel {
 
@@ -14,7 +16,7 @@ class XRHandMeshModel {
 	 *
 	 * @param {XRHandModel} handModel - The hand model.
 	 * @param {Group} controller - The WebXR controller.
-	 * @param {string} path - The model path.
+	 * @param {?string} path - The model path.
 	 * @param {XRHandedness} handedness - The handedness of the XR input source.
 	 * @param {?Loader} [loader=null] - The loader. If not provided, an instance of `GLTFLoader` will be used to load models.
 	 * @param {?Function} [onLoad=null] - A callback that is executed when a controller model has been loaded.

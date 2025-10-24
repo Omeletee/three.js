@@ -26,6 +26,7 @@ import {
  * so it looks along the selected axis.
  *
  * @augments Object3D
+ * @three_import import { ViewHelper } from 'three/addons/helpers/ViewHelper.js';
  */
 class ViewHelper extends Object3D {
 
@@ -33,7 +34,7 @@ class ViewHelper extends Object3D {
 	 * Constructs a new view helper.
 	 *
 	 * @param {Camera} camera - The camera whose transformation should be visualized.
-	 * @param {HTMLDOMElement} [domElement] - The DOM element that is used to render the view.
+	 * @param {HTMLElement} [domElement] - The DOM element that is used to render the view.
 	 */
 	constructor( camera, domElement ) {
 
@@ -157,11 +158,12 @@ class ViewHelper extends Object3D {
 			//
 
 			const x = domElement.offsetWidth - dim;
+			const y = renderer.isWebGPURenderer ? domElement.offsetHeight - dim : 0;
 
 			renderer.clearDepth();
 
 			renderer.getViewport( viewport );
-			renderer.setViewport( x, 0, dim, dim );
+			renderer.setViewport( x, y, dim, dim );
 
 			renderer.render( this, orthoCamera );
 
@@ -181,7 +183,7 @@ class ViewHelper extends Object3D {
 		 * This method should be called when a click or pointer event
 		 * has happened in the app.
 		 *
-		 * @param {Event} event - The event to process.
+		 * @param {PointerEvent} event - The event to process.
 		 * @return {boolean} Whether an intersection with the helper has been detected or not.
 		 */
 		this.handleClick = function ( event ) {

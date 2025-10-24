@@ -2,6 +2,7 @@ import { Color } from '../math/Color.js';
 import { EventDispatcher } from '../core/EventDispatcher.js';
 import { FrontSide, NormalBlending, LessEqualDepth, AddEquation, OneMinusSrcAlphaFactor, SrcAlphaFactor, AlwaysStencilFunc, KeepStencilOp } from '../constants.js';
 import { generateUUID } from '../math/MathUtils.js';
+import { warn } from '../utils.js';
 
 let _materialId = 0;
 
@@ -151,7 +152,7 @@ class Material extends EventDispatcher {
 		 * Defines the blending equation.
 		 *
 		 * @type {(AddEquation|SubtractEquation|ReverseSubtractEquation|MinEquation|MaxEquation)}
-		 * @default OneMinusSrcAlphaFactor
+		 * @default AddEquation
 		 */
 		this.blendEquation = AddEquation;
 
@@ -174,8 +175,8 @@ class Material extends EventDispatcher {
 		/**
 		 * Defines the blending equation of the alpha channel.
 		 *
-		 * @type {(AddEquation|SubtractEquation|ReverseSubtractEquation|MinEquation|MaxEquation)}
-		 * @default OneMinusSrcAlphaFactor
+		 * @type {?(AddEquation|SubtractEquation|ReverseSubtractEquation|MinEquation|MaxEquation)}
+		 * @default null
 		 */
 		this.blendEquationAlpha = null;
 
@@ -428,6 +429,14 @@ class Material extends EventDispatcher {
 		this.forceSinglePass = false;
 
 		/**
+		 * Whether it's possible to override the material with {@link Scene#overrideMaterial} or not.
+		 *
+		 * @type {boolean}
+		 * @default true
+		 */
+		this.allowOverride = true;
+
+		/**
 		 * Defines whether 3D objects using this material are visible.
 		 *
 		 * @type {boolean}
@@ -553,7 +562,7 @@ class Material extends EventDispatcher {
 
 			if ( newValue === undefined ) {
 
-				console.warn( `THREE.Material: parameter '${ key }' has value of undefined.` );
+				warn( `Material: parameter '${ key }' has value of undefined.` );
 				continue;
 
 			}
@@ -562,7 +571,7 @@ class Material extends EventDispatcher {
 
 			if ( currentValue === undefined ) {
 
-				console.warn( `THREE.Material: '${ key }' is not a property of THREE.${ this.type }.` );
+				warn( `Material: '${ key }' is not a property of THREE.${ this.type }.` );
 				continue;
 
 			}
@@ -607,7 +616,7 @@ class Material extends EventDispatcher {
 
 		const data = {
 			metadata: {
-				version: 4.6,
+				version: 4.7,
 				type: 'Material',
 				generator: 'Material.toJSON'
 			}
@@ -653,6 +662,18 @@ class Material extends EventDispatcher {
 
 			data.clearcoatNormalMap = this.clearcoatNormalMap.toJSON( meta ).uuid;
 			data.clearcoatNormalScale = this.clearcoatNormalScale.toArray();
+
+		}
+
+		if ( this.sheenColorMap && this.sheenColorMap.isTexture ) {
+
+			data.sheenColorMap = this.sheenColorMap.toJSON( meta ).uuid;
+
+		}
+
+		if ( this.sheenRoughnessMap && this.sheenRoughnessMap.isTexture ) {
+
+			data.sheenRoughnessMap = this.sheenRoughnessMap.toJSON( meta ).uuid;
 
 		}
 
@@ -986,12 +1007,6 @@ class Material extends EventDispatcher {
 	set needsUpdate( value ) {
 
 		if ( value === true ) this.version ++;
-
-	}
-
-	onBuild( /* shaderobject, renderer */ ) {
-
-		console.warn( 'Material: onBuild() has been removed.' ); // @deprecated, r166
 
 	}
 

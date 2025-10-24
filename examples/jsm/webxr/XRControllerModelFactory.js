@@ -239,7 +239,7 @@ function addAssetSceneToControllerModel( controllerModel, scene ) {
 }
 
 /**
- * Allows to create controller models for WebXR controllersthat can be added as a visual
+ * Allows to create controller models for WebXR controllers that can be added as a visual
  * representation to your scene. `XRControllerModelFactory` will automatically fetch controller
  * models that match what the user is holding as closely as possible. The models should be
  * attached to the object returned from getControllerGrip in order to match the orientation of
@@ -255,6 +255,8 @@ function addAssetSceneToControllerModel( controllerModel, scene ) {
  * controllerGrip.add( controllerModelFactory.createControllerModel( controllerGrip ) );
  * scene.add( controllerGrip );
  * ```
+ *
+ * @three_import import { XRControllerModelFactory } from 'three/addons/webxr/XRControllerModelFactory.js';
  */
 class XRControllerModelFactory {
 

@@ -51,6 +51,7 @@ const _moveDirection = new Vector3();
  * to stay "right side up".
  *
  * @augments Controls
+ * @three_import import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
  */
 class TrackballControls extends Controls {
 
@@ -58,7 +59,7 @@ class TrackballControls extends Controls {
 	 * Constructs a new controls instance.
 	 *
 	 * @param {Object3D} object - The object that is managed by the controls.
-	 * @param {?HTMLDOMElement} domElement - The HTML element used for event listeners.
+	 * @param {?HTMLElement} domElement - The HTML element used for event listeners.
 	 */
 	constructor( object, domElement = null ) {
 
@@ -257,7 +258,7 @@ class TrackballControls extends Controls {
 
 		if ( domElement !== null ) {
 
-			this.connect();
+			this.connect( domElement );
 
 			this.handleResize();
 
@@ -268,7 +269,9 @@ class TrackballControls extends Controls {
 
 	}
 
-	connect() {
+	connect( element ) {
+
+		super.connect( element );
 
 		window.addEventListener( 'keydown', this._onKeyDown );
 		window.addEventListener( 'keyup', this._onKeyUp );

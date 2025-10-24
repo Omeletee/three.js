@@ -1,5 +1,5 @@
 /**
- * @classdesc  Can be used to include Ammo.js as a Physics engine into
+ * @classdesc Can be used to include Ammo.js as a Physics engine into
  * `three.js` apps. Make sure to include `ammo.wasm.js` first:
  * ```
  * <script src="jsm/libs/ammo.wasm.js"></script>
@@ -12,6 +12,7 @@
  * @name AmmoPhysics
  * @class
  * @hideconstructor
+ * @three_import import { AmmoPhysics } from 'three/addons/physics/AmmoPhysics.js';
  */
 async function AmmoPhysics() {
 
@@ -305,7 +306,7 @@ async function AmmoPhysics() {
 		addMesh: addMesh,
 
 		/**
-		 * Set the position of the given mesh which is part of the pyhsics simulation. Calling this
+		 * Set the position of the given mesh which is part of the physics simulation. Calling this
 		 * method will reset the current simulated velocity of the mesh.
 		 *
 		 * @method

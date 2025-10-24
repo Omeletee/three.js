@@ -11,7 +11,10 @@ import {
 	Vector3,
 } from 'three';
 
-/** @module BufferGeometryUtils */
+/**
+ * @module BufferGeometryUtils
+ * @three_import import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
+ */
 
 /**
  * Computes vertex tangents using the MikkTSpace algorithm. MikkTSpace generates the same tangents consistently,
@@ -27,7 +30,7 @@ import {
  *
  * @param {BufferGeometry} geometry - The geometry to compute tangents for.
  * @param {Object} MikkTSpace - Instance of `examples/jsm/libs/mikktspace.module.js`, or `mikktspace` npm package.
- * Aawait `MikkTSpace.ready` before use.
+ * Await `MikkTSpace.ready` before use.
  * @param {boolean} [negateSign=true] - Whether to negate the sign component (.w) of each tangent.
  * Required for normal map conventions in some formats, including glTF.
  * @return {BufferGeometry} The updated geometry.
@@ -443,7 +446,7 @@ function deepCloneAttribute( attribute ) {
  * single {@link InterleavedBuffer} instance. All attributes must have compatible types.
  *
  * @param {Array<BufferAttribute>} attributes - The attributes to interleave.
- * @return {Array<InterleavedBufferAttribute>} An array of interleaved attributes. If interleave does not succeed, the method returns `null`.
+ * @return {?Array<InterleavedBufferAttribute>} An array of interleaved attributes. If interleave does not succeed, the method returns `null`.
  */
 function interleaveAttributes( attributes ) {
 
@@ -916,7 +919,7 @@ function toTrianglesDrawMode( geometry, drawMode ) {
  * will use the original `BufferGeometry`, not the morphed/skinned one, generating an incorrect result.
  * Using this function to create a shadow `Object3`D the `DecalGeometry` can be correctly generated).
  *
- * @param {Mesh|Line|Points} object - The 3D object tocompute morph attributes for.
+ * @param {Mesh|Line|Points} object - The 3D object to compute morph attributes for.
  * @return {Object} An object with original position/normal attributes and morphed ones.
  */
 function computeMorphedAttributes( object ) {

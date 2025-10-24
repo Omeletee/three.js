@@ -23,11 +23,12 @@ const _shadowMatrix = new Matrix4();
  * ```
  *
  * @augments Mesh
+ * @three_import import { ShadowMesh } from 'three/addons/objects/ShadowMesh.js';
  */
 class ShadowMesh extends Mesh {
 
 	/**
-	 * Constructs a new shadw mesh.
+	 * Constructs a new shadow mesh.
 	 *
 	 * @param {Mesh} mesh - The shadow-casting reference mesh.
 	 */

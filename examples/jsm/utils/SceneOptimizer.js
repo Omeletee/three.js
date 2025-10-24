@@ -3,7 +3,9 @@ import * as THREE from 'three';
 /**
  * This class can be used to optimized scenes by converting
  * individual meshes into {@link BatchedMesh}. This component
- * is an experimental attempt to implment auto-batching in three.js.
+ * is an experimental attempt to implement auto-batching in three.js.
+ *
+ * @three_import import { SceneOptimizer } from 'three/addons/utils/SceneOptimizer.js';
  */
 class SceneOptimizer {
 
@@ -346,7 +348,7 @@ class SceneOptimizer {
 	/**
 	 * Removes the given array of meshes from the scene.
 	 *
-	 * @param {Array<Mesh>} meshesToRemove - The meshes to remove.
+	 * @param {Set<Mesh>} meshesToRemove - The meshes to remove.
 	 */
 	disposeMeshes( meshesToRemove ) {
 
@@ -419,7 +421,7 @@ class SceneOptimizer {
 				reductionRatio: ( ( 1 - totalFinalMeshes / totalOriginalMeshes ) * 100 ).toFixed( 1 ),
 			};
 
-			this.logDebugInfo( stats );
+			this._logDebugInfo( stats );
 
 		}
 
